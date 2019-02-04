@@ -1,0 +1,47 @@
+eval "$(direnv hook bash)"
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# make nvim default
+export VISUAL='vim'
+
+#Virtualenv
+export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
+export PATH=/usr/local/bin:/usr/local/sbin:${PATH}
+export WORKON_HOME=$HOME/.virtualenvs
+
+# export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python@2/libexec/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+source /usr/local/bin/virtualenvwrapper.sh
+
+# export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+# export PATH=/usr/local/opt/qt@5.5/bin:$PATH
+
+#virtualenv wrapper
+# export WORKON_HOME=$HOME/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+eval "$(ssh-agent -s)"
+
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+#virtualenv wrapper
+# export WORKON_HOME=$HOME/.virtualenvs
+
+# Use "be" instead of "bundle exec" for Rails
+alias be="bundle exec"
+
+# programs that launch editors (e.g. git) will use Atom
+export EDITOR="atom -w"
+
+# shortcuts for git
+alias ga="git add"
+alias gb="git branch"
+alias gd="git diff --patience --ignore-space-change"
+alias gc="git checkout"
+alias gs="git status"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
